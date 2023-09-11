@@ -18,7 +18,6 @@ This project focuses on performing comprehensive analysis and visualization of c
 - [Visualization](#visualization)
 - [Creating a Power BI Dashboard](#creating-a-power-bi-dashboard)
 - [Contributing](#contributing)
-- [License](#license)
 - [Summary](#summary)
 
 ## Project Description
@@ -71,7 +70,7 @@ The project uses the following data sources:
 
 Sample visualizations from this project:
 
-![Sample Dashboard](sample_dashboard.png)
+[Sample Dashboard]()
 
 ## Creating a Power BI Dashboard
 
@@ -134,19 +133,68 @@ To create a dashboard in Power BI for Claire that reflects all relevant Key Perf
    Avg Handle Time = AVERAGE(DURATION([AvgTalkDuration]))
    ```
 
-   Formula for Calls Answered by Agent:
+ 7.  Formula for Calls Answered by Agent:
    ```DAX
    Total Calls Answered by Agent = COUNTROWS(FILTER('YourTableName', 'Answered (Y/N)' = "Y"))
    ```
 
+8. // This measure calculates the Call Speed of Answer based on a moving average
+ ```DAX
+Call Speed of Answer =
+VAR MovingAvg = AVERAGEX(
+    FILTER(
+        ALL('call centre trends'[Date]), // Filter the Date column to consider a 30-day window
+        'call centre trends'[Date] >= EARLIER('call centre trends'[Date]) - 30 && 'call centre trends'[Date] <= EARLIER('call centre trends'[Date])
+    ),
+    'call centre trends'[Speed of answer in seconds] // Calculate the average of Speed of Answer in this window
+)
+RETURN
+    SWITCH(
+        TRUE(),
+        MovingAvg >= 10 && MovingAvg <= 50, "High", // If the moving average is between 10 and 50, categorize as "High"
+        MovingAvg >= 50 && MovingAvg < 100, "Medium", // If it's between 50 and 100, categorize as "Medium"
+        MovingAvg >= 100 && MovingAvg < 130, "Low", // If it's between 100 and 130, categorize as "Low"
+        "Abandoned" // Otherwise, categorize as "Abandoned"
+    )
+  ```
+8. This code assigns a "Rating Name" based on the "Satisfaction rating" value in the "Call Centre Trends" dataset, assigning labels based on the rating values.
+ ```DAX
+ Rating Name =
+IF('Call Centre Trends'[Satisfaction rating] = 1, "Poor",
+   IF('Call Centre Trends'[Satisfaction rating] = 2, "Fair",
+      IF('Call Centre Trends'[Satisfaction rating] = 3, "Average",
+         IF('Call Centre Trends'[Satisfaction rating] = 4, "Good",
+            IF('Call Centre Trends'[Satisfaction rating] = 5, "Excellent", "")
+         )
+      )
+   )
+)
+  ```
+9. Create a Time table
+    
+ ```DAX
+Time table = 
+VAR _SERIES = 
+   GENERATESERIES( 1, 1440, 1 )
+VAR _TIME = 
+    ADDCOLUMNS( _SERIES, "TIMEANDDAY", TIME (0, [VALUE], 0))
+RETURN
+    ADDCOLUMNS(
+        _TIME,
+        "TIMEKEY", FORMAT([TIMEANDDAY], "hhmm"),
+        "ACTUAL TIME", FORMAT([TIMEANDDAY], "HH:MM AM/PM"),
+        "HOUR", HOUR([TIMEANDDAY]),
+        "HOUR EXTENDED", FORMAT([TIMEANDDAY], "H AM/PM"),
+        "MINUTE", MINUTE([TIMEANDDAY]),
+        "AMPM", FORMAT([TIMEANDDAY], "AM/PM")
+    )
+ ```
 Make sure to replace `'YourTableName'` with the actual name of your table in Power BI, and use the column names as indicated in your dataset.
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow the [Contributing Guidelines](CONTRIBUTING.md).
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
 
 ## Summary
 
