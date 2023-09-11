@@ -69,8 +69,9 @@ The project uses the following data sources:
 ## Visualization
 
 Sample visualizations from this project:
-
-[Sample Dashboard]()
+![image](https://github.com/piyush5ingh/PWC_task_Call_center_solution_Power_BI/assets/107373555/750d6e31-f0b6-4bc7-b9d0-621e9700342e)
+![2](https://github.com/piyush5ingh/PWC_task_Call_center_solution_Power_BI/assets/107373555/a6bff7ba-6ee7-417f-885b-6dc1765248c3)
+![3](https://github.com/piyush5ingh/PWC_task_Call_center_solution_Power_BI/assets/107373555/42a00f9e-0a84-4137-a668-1ff8e34f0153)
 
 ## Creating a Power BI Dashboard
 
@@ -195,7 +196,6 @@ Make sure to replace `'YourTableName'` with the actual name of your table in Pow
 Contributions are welcome! If you'd like to contribute to this project, please follow the [Contributing Guidelines](CONTRIBUTING.md).
 
 
-
 ## Summary
 
 📊 Data Visualization Insights:
@@ -208,3 +208,4 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 7. Becky has the slowest speed of answer but a higher call resolution rate, ranking 5th.
 8. Martha has the highest speed of answer in the second position.
 
+![image](https://github.com/piyush5ingh/PWC_task_Call_center_solution_Power_BI/assets/107373555/750d6e31-f0b6-4bc7-b9d0-621e9700342e)
