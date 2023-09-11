@@ -208,4 +208,3 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 7. Becky has the slowest speed of answer but a higher call resolution rate, ranking 5th.
 8. Martha has the highest speed of answer in the second position.
 
-![image](https://github.com/piyush5ingh/PWC_task_Call_center_solution_Power_BI/assets/107373555/750d6e31-f0b6-4bc7-b9d0-621e9700342e)
